@@ -10,11 +10,11 @@ app = FastAPI()
 import os
 import pandas as pd
 
-movie_file = "https://raw.githubusercontent.com/perico3372/proyectoIndividual/main/movie.csv"
+#movie_file = "https://raw.githubusercontent.com/perico3372/proyectoIndividual/main/movie.csv"
 #country_file = "country.csv"
-country_file ="https://raw.githubusercontent.com/perico3372/proyectoIndividual/main/country.csv"
+#country_file ="https://raw.githubusercontent.com/perico3372/proyectoIndividual/main/country.csv"
 #production_file = "production.csv"
-production_file = "https://raw.githubusercontent.com/perico3372/proyectoIndividual/main/production.csv"
+#production_file = "https://raw.githubusercontent.com/perico3372/proyectoIndividual/main/production.csv"
 
 dataframe_movie = pd.read_csv(movie_file)#, usecols=range(11))
 dataframe_production =  pd.read_csv(production_file)#, usecols=range(11))
