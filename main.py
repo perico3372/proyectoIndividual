@@ -29,7 +29,7 @@ dataframe_production =  pd.read_csv(production_file)#, usecols=range(11))
 dataframe_country =  pd.read_csv(country_file)#, usecols=range(11))
 
 @app.get("/mes")
-def peliculas_month(month: str):
+async def peliculas_month(month: str):
     movies_month = dataframe_movie[dataframe_movie['month'] == month]
     count_month = movies_month.shape[0]
     return {"Cantidad de peliculas en el mes de": month, "fue de": count_month}
@@ -37,7 +37,7 @@ def peliculas_month(month: str):
 #print(peliculas_month("Febrero"))
 
 @app.get("/dia")
-def peliculas_day(day: str):
+async def peliculas_day(day: str):
     movies_day = dataframe_movie[dataframe_movie['day_week'] == day]
     count_day = movies_day.shape[0]
     return {"Cantidad de peliculas en el mes de": day, "fue de": count_day}
@@ -45,7 +45,7 @@ def peliculas_day(day: str):
 #print(peliculas_day("Jueves"))
 
 @app.get("/franquicia")
-def franquicia(franquicia):
+async def franquicia(franquicia):
     query_three = dataframe_movie[dataframe_movie['collection'] == franquicia]
     count_movie = query_three.shape[0]
     query_profit_collection_sum = query_three['profit'].sum()
@@ -54,7 +54,7 @@ def franquicia(franquicia):
 #print(franquicia("Toy Story Collection"))
 
 @app.get("/pais")
-def peliculas_pais(pais):
+async def peliculas_pais(pais):
     '''Ingrese el pais, retornando la cantidad de peliculas producidas por el pais'''
     filtered_df = dataframe_country[dataframe_country['country'] == pais]
     count_country = filtered_df.shape[0]
@@ -62,7 +62,7 @@ def peliculas_pais(pais):
 #print(peliculas_pais("United States of America"))
 
 @app.get("/productora")
-def productoras(productora):
+async def productoras(productora):
     '''Ingresa la productora, retornando la ganancia total y la cantidad de películas que produjeron'''
     production_companies = dataframe_production[dataframe_production["companies"] == productora]
     count_movie = production_companies.shape[0]
@@ -71,7 +71,7 @@ def productoras(productora):
 #print(productoras("Pixar Animation Studios"))
 
 
-def retorno(pelicula):
+async def retorno(pelicula):
     '''Ingresa la película, retornando la inversión, la ganancia, el retorno y el año en el que se lanzó'''
     group_movie = dataframe_movie[dataframe_movie["title"] == pelicula]
     query_budget = group_movie["budget"].values[0]
