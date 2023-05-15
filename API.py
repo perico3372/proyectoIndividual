@@ -6,9 +6,8 @@ Created on Thu May 11 06:45:17 2023
 @author: pablo
 """
 
-import os
+#import os
 import pandas as pd
-os.chdir('/_disk_misc/api')
 from fastapi import FastAPI
 app = FastAPI()
 from pyspark.sql import SparkSession
