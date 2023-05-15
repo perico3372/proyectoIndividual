@@ -16,9 +16,9 @@ import pandas as pd
 #production_file = "production.csv"
 #production_file = "https://raw.githubusercontent.com/perico3372/proyectoIndividual/main/production.csv"
 
-dataframe_movie = pd.read_csv(movie_file)#, usecols=range(11))
-dataframe_production =  pd.read_csv(production_file)#, usecols=range(11))
-dataframe_country =  pd.read_csv(country_file)#, usecols=range(11))
+#dataframe_movie = pd.read_csv(movie_file)#, usecols=range(11))
+#dataframe_production =  pd.read_csv(production_file)#, usecols=range(11))
+#dataframe_country =  pd.read_csv(country_file)#, usecols=range(11))
 
 @app.get("/")
 def mensaje():
