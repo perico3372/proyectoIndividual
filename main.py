@@ -30,7 +30,7 @@ dataframe_country =  pd.read_csv(country_file)#, usecols=range(11))
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=10000)
 
 @app.get("/mes")
 async def peliculas_month(month: str):
