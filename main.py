@@ -34,7 +34,7 @@ def peliculas_month(month: str):
     count_month = movies_month.shape[0]
     return {"Cantidad de peliculas en el mes de": month, "fue de": count_month}
 
-print(peliculas_month("Febrero"))
+#print(peliculas_month("Febrero"))
 
 @app.get("/dia")
 def peliculas_day(day: str):
