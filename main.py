@@ -32,7 +32,7 @@ if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=10000)
 
-@app.get("/mes")
+@app.get("/mes/{month}")
 async def peliculas_month(month: str):
     movies_month = dataframe_movie[dataframe_movie['month'] == month]
     count_month = movies_month.shape[0]
@@ -40,7 +40,7 @@ async def peliculas_month(month: str):
 
 #print(peliculas_month("Febrero"))
 
-@app.get("/dia")
+@app.get("/dia/{day}")
 async def peliculas_day(day: str):
     movies_day = dataframe_movie[dataframe_movie['day_week'] == day]
     count_day = movies_day.shape[0]
@@ -48,8 +48,8 @@ async def peliculas_day(day: str):
 
 #print(peliculas_day("Jueves"))
 
-@app.get("/franquicia")
-async def franquicia(franquicia):
+@app.get("/franquicia/{franquicia}")
+async def franquicia(franquicia:str):
     query_three = dataframe_movie[dataframe_movie['collection'] == franquicia]
     count_movie = query_three.shape[0]
     query_profit_collection_sum = query_three['profit'].sum()
@@ -57,7 +57,7 @@ async def franquicia(franquicia):
     return {'franquicia': franquicia, 'cantidad': count_movie, 'ganancia_total': query_profit_collection_sum, 'ganancia_promedio': query_profit_collection_avg}
 #print(franquicia("Toy Story Collection"))
 
-@app.get("/pais")
+@app.get("/pais/{pais}")
 async def peliculas_pais(pais):
     '''Ingrese el pais, retornando la cantidad de peliculas producidas por el pais'''
     filtered_df = dataframe_country[dataframe_country['country'] == pais]
@@ -65,8 +65,8 @@ async def peliculas_pais(pais):
     return {'pais': pais, 'cantidad': count_country}
 #print(peliculas_pais("United States of America"))
 
-@app.get("/productora")
-async def productoras(productora):
+@app.get("/productora/{productora}")
+async def productoras(productora:str):
     '''Ingresa la productora, retornando la ganancia total y la cantidad de películas que produjeron'''
     production_companies = dataframe_production[dataframe_production["companies"] == productora]
     count_movie = production_companies.shape[0]
@@ -74,8 +74,8 @@ async def productoras(productora):
     return {'productora': productora, 'ganancia_total': profit_sum, 'cantidad': count_movie}
 #print(productoras("Pixar Animation Studios"))
 
-
-async def retorno(pelicula):
+@app.get("/retorno/{pelicula}")
+async def retorno(pelicula:str):
     '''Ingresa la película, retornando la inversión, la ganancia, el retorno y el año en el que se lanzó'''
     group_movie = dataframe_movie[dataframe_movie["title"] == pelicula]
     query_budget = group_movie["budget"].values[0]
