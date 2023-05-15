@@ -34,7 +34,7 @@ dataframe_country =  pd.read_csv(country_file)#, usecols=range(11))
 
 
 @app.get("/") 
-async def indice()
+async def indice():
   mensaje = """Hola"""  
   return  print(mensaje)
  
