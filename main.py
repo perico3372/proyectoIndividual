@@ -117,19 +117,19 @@ print(recomendacion("Toy Story"))
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import linear_kernel
 import pandas as pd
-#%%
+
 def frecuencia_overview(list_overview: list):   
     repeticiones = {}
     for overview in list_overview:
         repeticiones[overview] = repeticiones.get(overview, 0) + 1
     return repeticiones
-#%%
+
 def mas_repetidas(repeticiones):
     acc = [(repeticiones[i], i) for i in repeticiones]
     acc.sort()
     acc.reverse()
     return acc
-#%%
+
 def recomendacion(titulo):
     vector = TfidfVectorizer(stop_words="english") 
     dataframe_recomendation["overview"] = dataframe_recomendation["overview"].fillna("").astype(str)
