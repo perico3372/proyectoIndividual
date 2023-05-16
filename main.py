@@ -25,7 +25,7 @@ dataframe_movie = pd.read_csv(movie_file)#, usecols=range(11))
 dataframe_production =  pd.read_csv(production_file)
 dataframe_country =  pd.read_csv(country_file)
 
-dataframe_recomendation = pd.read_csv(recomendation_file)
+#dataframe_recomendation = pd.read_csv(recomendation_file)
 @app.get("/mes/{mes}")
 def peliculas_mes(mes: str):
     movies_month = dataframe_movie[dataframe_movie['month'] == mes]
