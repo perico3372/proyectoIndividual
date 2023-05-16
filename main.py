@@ -80,7 +80,34 @@ async def retorno(pelicula:str):
 #print(retorno("Toy Story"))
 
 
+@app.get("/recomendacion/{pelicula}")
+def frecuencia_overview(list_overview: list):   
+    repeticiones = {}
+    for overview in list_overview:
+        repeticiones["overview"] = repeticiones.get("overview", 0) + 1
+    return repeticiones
 
+def mas_repetidas(repeticiones):
+    acc = [(repeticiones[i], i) for i in repeticiones]
+    acc.sort()
+    acc.reverse()
+    return acc
+
+def recomendacion(titulo):
+   
+    vector = TfidfVectorizer(stop_words="english") 
+    dataframe_recomendation["overview"] = dataframe_recomendation["overview"].fillna("").astype(str)
+    matriz = vector.fit_transform(dataframe_recomendation["overview"])
+    similaridad_coseno = linear_kernel(matriz,matriz) 
+    indices = pd.Series(dataframe_recomendation.index, index = dataframe_recomendation["overwiew"]).drop_duplicates()
+    idx = indices["overview"]
+    similar = list(enumerate(similaridad_coseno[idx]))
+    similar = sorted(similar, key = lambda x: x(1), reverse = True)
+    similar = similar[1:5]
+    identificador = [i[0] for i in similar]
+    titulos = dataframe_recomendation["title"].iloc[identificador].to_list()[:5]
+    return{"recomendacion":titulos}
+#print(recomendacion("Toy Story"))
 
 #print(dataframe_recomendation)
 
