@@ -9,8 +9,8 @@ from fastapi import FastAPI
 app = FastAPI()
 import os
 import pandas as pd
-from sklearn.metrics.pairwise import linear_kernel
-from sklearn.feature_extraction.text import TfidfVectorizer
+#from sklearn.metrics.pairwise import linear_kernel
+#from sklearn.feature_extraction.text import TfidfVectorizer
 
 
 movie_file = "https://raw.githubusercontent.com/perico3372/proyectoIndividual/main/movie.csv"
@@ -19,7 +19,7 @@ country_file ="https://raw.githubusercontent.com/perico3372/proyectoIndividual/m
 
 production_file = "https://raw.githubusercontent.com/perico3372/proyectoIndividual/main/production.csv"
 
-recomendation_file = "https://raw.githubusercontent.com/perico3372/proyectoIndividual/main/recomendation_.csv"
+#recomendation_file = "https://raw.githubusercontent.com/perico3372/proyectoIndividual/main/recomendation_.csv"
 
 dataframe_movie = pd.read_csv(movie_file)#, usecols=range(11))
 dataframe_production =  pd.read_csv(production_file)
@@ -84,18 +84,7 @@ def retorno(pelicula:str):
 
 #print(dataframe_recomendation)
 
-@app.get("/recomendacion/{pelicula}")
-def frecuencia_overview(list_overview: list):   
-    repeticiones = {}
-    for overview in list_overview:
-        repeticiones["overview"] = repeticiones.get("overview", 0) + 1
-    return repeticiones
 
-def mas_repetidas(repeticiones):
-    acc = [(repeticiones[i], i) for i in repeticiones]
-    acc.sort()
-    acc.reverse()
-    return acc
 
 
 
