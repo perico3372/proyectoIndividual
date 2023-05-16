@@ -52,7 +52,7 @@ def franquicia(franquicia):
 #print(franquicia("Toy Story Collection"))
 
 @app.get("/pais/{pais}")
-def peliculas_pais(pais):
+def peliculas_pais(pais:str):
     '''Ingrese el pais, retornando la cantidad de peliculas producidas por el pais'''
     filtered_df = dataframe_country[dataframe_country['country'] == pais]
     count_country = filtered_df.shape[0]
@@ -60,7 +60,7 @@ def peliculas_pais(pais):
 #print(peliculas_pais("United States of America"))
 
 @app.get("/productora/{productora}")
-def productoras(productora):
+def productoras(productora:str):
     '''Ingresa la productora, retornando la ganancia total y la cantidad de películas que produjeron'''
     production_companies = dataframe_production[dataframe_production["companies"] == productora]
     count_movie = production_companies.shape[0]
@@ -69,7 +69,7 @@ def productoras(productora):
 #print(productoras("Pixar Animation Studios"))
 
 @app.get("/retorno/{pelicula}")
-def retorno(pelicula):
+def retorno(pelicula:str):
     '''Ingresa la película, retornando la inversión, la ganancia, el retorno y el año en el que se lanzó'''
     group_movie = dataframe_movie[dataframe_movie["title"] == pelicula]
     query_budget = group_movie["budget"].values[0]
@@ -97,7 +97,7 @@ def mas_repetidas(repeticiones):
     acc.reverse()
     return acc
 
-def recomendacion(titulo):
+def recomendacion(titulo:str):
    
     vector = TfidfVectorizer(stop_words="english") 
     dataframe_recomendation["overview"] = dataframe_recomendation["overview"].fillna("").astype(str)
