@@ -43,7 +43,7 @@ def peliculas_dia(dia: str):
 #print(peliculas_dia("Jueves"))
 
 @app.get("/franquicia/{franquicia}")
-def franquicia(franquicia):
+def franquicia(franquicia:str):
     query_three = dataframe_movie[dataframe_movie['collection'] == franquicia]
     count_movie = query_three.shape[0]
     query_profit_collection_sum = query_three['profit'].sum()
@@ -97,52 +97,7 @@ def mas_repetidas(repeticiones):
     acc.reverse()
     return acc
 
-def recomendacion(titulo:str):
-   
-    vector = TfidfVectorizer(stop_words="english") 
-    dataframe_recomendation["overview"] = dataframe_recomendation["overview"].fillna("").astype(str)
-    matriz = vector.fit_transform(dataframe_recomendation["overview"])
-    similaridad_coseno = linear_kernel(matriz,matriz) 
-    indices = pd.Series(dataframe_recomendation.index, index = dataframe_recomendation["overwiew"]).drop_duplicates()
-    idx = indices["overview"]
-    similar = list(enumerate(similaridad_coseno[idx]))
-    similar = sorted(similar, key = lambda x: x(1), reverse = True)
-    similar = similar[1:5]
-    identificador = [i[0] for i in similar]
-    titulos = dataframe_recomendation["title"].iloc[identificador].to_list()[:5]
-    return{"recomendacion":titulos}
-print(recomendacion("Toy Story"))
 
-#%%
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import linear_kernel
-import pandas as pd
-
-def frecuencia_overview(list_overview: list):   
-    repeticiones = {}
-    for overview in list_overview:
-        repeticiones[overview] = repeticiones.get(overview, 0) + 1
-    return repeticiones
-
-def mas_repetidas(repeticiones):
-    acc = [(repeticiones[i], i) for i in repeticiones]
-    acc.sort()
-    acc.reverse()
-    return acc
-
-def recomendacion(titulo):
-    vector = TfidfVectorizer(stop_words="english") 
-    dataframe_recomendation["overview"] = dataframe_recomendation["overview"].fillna("").astype(str)
-    matriz = vector.fit_transform(dataframe_recomendation["overview"])
-    similaridad_coseno = linear_kernel(matriz, matriz)
-    indices = pd.Series(dataframe_recomendation.index, index=dataframe_recomendation["overview"]).drop_duplicates()
-    idx = indices[titulo]
-    similar = list(enumerate(similaridad_coseno[idx]))
-    similar = sorted(similar, key=lambda x: x[1], reverse=True)
-    similar = similar[1:5]
-    identificador = [i[0] for i in similar]
-    titulos = dataframe_recomendation["title"].iloc[identificador].tolist()[:5]
-    return {"recomendacion": titulos}
 
 
 #print(recomendacion("Toy Story"))
